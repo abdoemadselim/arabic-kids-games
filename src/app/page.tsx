@@ -2,6 +2,8 @@ import GamesSection from "@/components/GamesSection";
 import SearchInput from "@/components/SearchInput";
 import SideBar from "@/components/sideBar";
 import { fetchGames } from "@/lib/games";
+import Image from "next/image";
+import { Suspense } from "react";
 
 type Props = {
   searchParams: {
@@ -22,10 +24,20 @@ export default async function Home({ searchParams }: Props) {
           </h2>
           <SearchInput />
         </div>
-        <GamesSection
-          fetchHandler={fetchGames}
-          searchText={searchParams.text}
-        />
+        <Suspense
+          fallback={
+            <Image
+              src="/images/loader.svg"
+              alt="loader"
+              width={200}
+              height={200}
+            />
+          }>
+          <GamesSection
+            fetchHandler={fetchGames}
+            searchText={searchParams.text}
+          />
+        </Suspense>
       </div>
     </div>
   );
