@@ -25,17 +25,7 @@ export default async function GamesCategory({ params: { category } }: Props) {
   decodedString.shift();
   return (
     <div className="flex min-h-screen bg-primary">
-      <Suspense
-        fallback={
-          <Image
-            src="/images/loader.svg"
-            alt="loader"
-            width={200}
-            height={200}
-          />
-        }>
-        <SideBar />
-      </Suspense>
+      <SideBar />
       <div className="flex-1 p-6">
         <div className="flex flex-col mb-6">
           <h2 className="text-4xl font-bold text-white">
@@ -46,6 +36,7 @@ export default async function GamesCategory({ params: { category } }: Props) {
         <Suspense
           fallback={
             <Image
+              className="text-center absolute "
               src="/images/loader.svg"
               alt="loader"
               width={200}

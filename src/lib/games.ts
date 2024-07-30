@@ -61,7 +61,7 @@ export async function fetchCategories() {
   const { data: categories } = await supabase
     .from("categories")
     .select("name, icon")
-    .order('id');
+    .order("id");
 
   const categoriesWithIcons = categories?.map((category) => {
     const {
