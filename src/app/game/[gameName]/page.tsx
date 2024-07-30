@@ -1,6 +1,9 @@
+import GameIframe from "@/components/GameIframe";
 import SideBar from "@/components/sideBar";
 import { fetchGame } from "@/lib/games";
 import { Metadata } from "next";
+import Image from "next/image";
+import { Suspense } from "react";
 
 type Props = {
   params: {
@@ -18,18 +21,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Game({ params: { gameName } }: Props) {
   const name = decodeURIComponent(gameName.split("-").join(" "));
-  const { url } = (await fetchGame(name)) as GameType;
 
   return (
     <div className="flex min-h-screen bg-primary">
       <SideBar hideText={true} />
-      <div className="flex flex-1 flex-col items-center justify-center w-full h-full bg-gradient-to-br from-[#FFC107] to-[#FF9800] p-8 md:p-6">
-        <h2 className="text-4xl mb-5 font-bold text-right">{name}</h2>
-        <iframe src={url} className="w-full h-[700px] d-block" width="100%" />
-        {/* <iframe
-          src={url}
-          className="w-full h-full fixed left-0 top-0 d-block z-50 m-0 p-0 bottom-0 right-0 bg-white"
-        /> */}
+      <div className="flex flex-1 flex-col items-center justify-center w-full relative h-full min-h-[760px] bg-gradient-to-br from-[#FFC107] to-[#FF9800] p-8 md:p-6">
+        <Suspense
+          fallback={
+            <Image
+              className="text-center absolute top-72 "
+              src="/images/loader.svg"
+              alt="loader"
+              width={200}
+              height={200}
+            />
+          }>
+                    <h2 className="text-4xl mb-5 font-bold text-right">{name}</h2>
+
+          <GameIframe gameName={name} />
+        </Suspense>
       </div>
     </div>
   );
