@@ -22,10 +22,11 @@ export async function fetchGame(name: string) {
 }
 
 function attachImages(games: Partial<GameType>[]) {
+  const storage = supabase.storage.from("games");
   const gamesWithImages = games?.map((game) => {
     const {
       data: { publicUrl },
-    } = supabase.storage.from("games").getPublicUrl(game.thumbnail || "") as {
+    } = storage.getPublicUrl(game.thumbnail || "") as {
       data: FileType;
     };
 
@@ -63,10 +64,12 @@ export async function fetchCategories() {
     .select("name, icon")
     .order("id");
 
+  const storage = supabase.storage.from("games");
+
   const categoriesWithIcons = categories?.map((category) => {
     const {
       data: { publicUrl },
-    } = supabase.storage.from("games").getPublicUrl(category.icon) as {
+    } = storage.getPublicUrl(category.icon) as {
       data: FileType;
     };
 
