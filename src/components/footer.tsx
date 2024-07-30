@@ -20,7 +20,7 @@ export default async function Footer() {
                   <Link
                     key={category.name}
                     href={`/${
-                      category.name === "العاب" ? "" : `العاب ${category.name}`
+                      category.name === "العاب" ? "" : `العاب-${category.name.split(" ").join("-")}`
                     }`}
                     className="bg-background rounded-md px-4 py-2 text-sm font-medium hover:bg-primary hover:text-white transition-colors"
                     prefetch={false}>
