@@ -26,13 +26,16 @@ export default async function Home({ searchParams }: Props) {
         </div>
         <Suspense
           fallback={
-            <Image
-              src="/images/loader.svg"
-              alt="loader"
-              className="absolute"
-              width={200}
-              height={200}
-            />
+            <div className="flex justify-center items-center h-64">
+              <Image
+                className="text-center absolute"
+                src="/images/loader.svg"
+                alt="Loading games"
+                width={200}
+                height={200}
+                priority
+              />
+            </div>
           }>
           <GamesSection
             fetchHandler={fetchGames}

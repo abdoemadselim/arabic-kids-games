@@ -7,5 +7,14 @@ type Props = {
 export default async function GameIframe({ gameName }: Props) {
   const { url } = (await fetchGame(gameName)) as GameType;
 
-  return <iframe src={url} className="w-full h-[700px] d-block" width="100%" />;
+  return (
+    <div className="game-container relative pb-[56.25%] h-0 overflow-hidden">
+      <iframe
+        className="absolute top-0 left-0 w-full h-[1000px] border-0"
+        title={`Play ${gameName}`}
+        allow="fullscreen; encrypted-media"
+        src={url}
+      />
+    </div>
+  );
 }

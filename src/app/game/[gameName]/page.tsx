@@ -1,6 +1,5 @@
 import GameIframe from "@/components/GameIframe";
 import SideBar from "@/components/sideBar";
-import { fetchGame } from "@/lib/games";
 import { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -23,24 +22,25 @@ export default async function Game({ params: { gameName } }: Props) {
   const name = decodeURIComponent(gameName.split("-").join(" "));
 
   return (
-    <div className="flex min-h-screen bg-primary">
+    <div className="flex h-full bg-primary">
       <SideBar hideText={true} />
-      <div className="flex flex-1 flex-col items-center justify-center w-full relative h-full min-h-[760px] bg-gradient-to-br from-[#FFC107] to-[#FF9800] p-8 md:p-6">
+      <main className="w-full relative h-[100%] bg-gradient-to-br from-[#FFC107] to-[#FF9800] px-6 pt-10">
         <Suspense
           fallback={
-            <Image
-              className="text-center absolute top-72 "
-              src="/images/loader.svg"
-              alt="loader"
-              width={200}
-              height={200}
-            />
+            <div className="flex justify-center items-center h-64">
+              <Image
+                src="/images/loader.svg"
+                alt={`Loading ${name} game`}
+                width={200}
+                height={200}
+                priority
+              />
+            </div>
           }>
-                    <h2 className="text-4xl mb-5 font-bold text-right">{name}</h2>
-
+          <h2 className="text-4xl mb-5 pb-4 font-bold text-right">{name}</h2>
           <GameIframe gameName={name} />
         </Suspense>
-      </div>
+      </main>
     </div>
   );
 }

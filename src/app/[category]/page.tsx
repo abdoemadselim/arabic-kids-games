@@ -21,34 +21,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function GamesCategory({ params: { category } }: Props) {
-  let decodedString: string[] = decodeURIComponent(category).split("-");
-  decodedString.shift();
+  const decodedCategory = decodeURIComponent(category)
+    .split("-")
+    .slice(1)
+    .join(" ");
+  const pageTitle = `العاب ${decodedCategory}`;
+
   return (
     <div className="flex min-h-screen bg-primary">
       <SideBar />
-      <div className="flex-1 p-6">
+      <main className="flex-1 p-6">
         <div className="flex flex-col mb-6">
-          <h2 className="text-4xl font-bold text-white">
-            العاب {decodeURIComponent(decodedString.join(" "))}
-          </h2>
+          <h2 className="text-4xl font-bold text-white">{pageTitle}</h2>
           <SearchInput />
         </div>
         <Suspense
           fallback={
-            <Image
-              className="text-center absolute "
-              src="/images/loader.svg"
-              alt="loader"
-              width={200}
-              height={200}
-            />
+            <div className="flex justify-center items-center h-64">
+              <Image
+                className="text-center absolute"
+                src="/images/loader.svg"
+                alt="Loading games"
+                width={200}
+                height={200}
+                priority
+              />
+            </div>
           }>
           <GamesSection
             fetchHandler={fetchCategoryGames}
-            category={decodedString.join(" ")}
+            category={decodedCategory}
           />
         </Suspense>
-      </div>
+      </main>
     </div>
   );
 }
