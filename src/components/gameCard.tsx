@@ -15,11 +15,12 @@ export default function GameCard({ game: { name, image } }: Props) {
       className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-500 hover:scale-110 block"
       prefetch={false}>
       <Image
+        style={{ background: "#F9BF28" }}
         src={image}
         alt={name}
         width={300}
         height={200}
-        className="w-full h-48 object-cover"
+        className=" w-full h-48 object-cover"
       />
       <div className="p-4">
         <h3 className="text-xl font-bold mb-2">{name}</h3>
