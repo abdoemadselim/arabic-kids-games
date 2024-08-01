@@ -4,7 +4,8 @@ import { ReactNode, Suspense } from "react";
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Image from "next/image";
+
+import SideBar from "@/components/sideBar";
 
 export const metadata: Metadata = {
   title: "العاب اطفال",
@@ -35,7 +36,10 @@ export default function Layout({ children }: { children: ReactNode }) {
     <html lang="ar" className="h-full">
       <body className={`${baloo.className} h-full`}>
         <Header />
-        {children}
+        <div className="flex min-h-screen bg-primary">
+          <SideBar />
+          {children}
+        </div>
         <Suspense
           fallback={
             <div className="flex justify-center w-full items-center h-[200px] bg-white"></div>

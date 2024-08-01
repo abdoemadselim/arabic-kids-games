@@ -22,25 +22,21 @@ export default async function Game({ params: { gameName } }: Props) {
   const name = decodeURIComponent(gameName.split("-").join(" "));
 
   return (
-    <div className="flex h-full bg-primary">
-      <SideBar hideText={true} />
-      <main className="w-full relative h-[100%] bg-gradient-to-br from-[#FFC107] to-[#FF9800] px-6 pt-10">
-        <Suspense
-          fallback={
-            <div className="flex justify-center items-center h-64">
-              <Image
-                src="/images/loader.svg"
-                alt={`Loading ${name} game`}
-                width={200}
-                height={200}
-                priority
-              />
-            </div>
-          }>
-          <h2 className="text-4xl mb-5 pb-4 font-bold text-right">{name}</h2>
-          <GameIframe gameName={name} />
-        </Suspense>
-      </main>
-    </div>
+    <main className="flex-1 flex relative h-screen bg-gradient-to-br from-[#FFC107] to-[#FF9800] px-6 pt-10">
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center h-full">
+            <Image
+              src="/images/loader.svg"
+              alt={`Loading ${name} game`}
+              width={300}
+              height={300}
+              priority
+            />
+          </div>
+        }>
+        <GameIframe gameName={name} />
+      </Suspense>
+    </main>
   );
 }
